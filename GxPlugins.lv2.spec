@@ -1,4 +1,4 @@
-Summary:	A set of extra lv2 plugins from the guitarix project
+Summary:	A set of extra lv2 plugins from the Guitarix project
 Name:		GxPlugins.lv2
 Version:	0.7
 Release:	1
