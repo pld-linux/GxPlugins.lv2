@@ -1,0 +1,741 @@
+diff -dur GxPlugins_0.7.orig/GxAxisFace.lv2/Makefile GxPlugins_0.7/GxAxisFace.lv2/Makefile
+--- GxPlugins_0.7.orig/GxAxisFace.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxAxisFace.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxBaJaTubeDriver.lv2/Makefile GxPlugins_0.7/GxBaJaTubeDriver.lv2/Makefile
+--- GxPlugins_0.7.orig/GxBaJaTubeDriver.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxBaJaTubeDriver.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxBlueAmp.lv2/Makefile GxPlugins_0.7/GxBlueAmp.lv2/Makefile
+--- GxPlugins_0.7.orig/GxBlueAmp.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxBlueAmp.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxBoobTube.lv2/Makefile GxPlugins_0.7/GxBoobTube.lv2/Makefile
+--- GxPlugins_0.7.orig/GxBoobTube.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxBoobTube.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -35,10 +35,10 @@
+ 	VER = 0.1
+ 	# set compile flags
+ 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxBottleRocket.lv2/Makefile GxPlugins_0.7/GxBottleRocket.lv2/Makefile
+--- GxPlugins_0.7.orig/GxBottleRocket.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxBottleRocket.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxClubDrive.lv2/Makefile GxPlugins_0.7/GxClubDrive.lv2/Makefile
+--- GxPlugins_0.7.orig/GxClubDrive.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxClubDrive.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxCreamMachine.lv2/Makefile GxPlugins_0.7/GxCreamMachine.lv2/Makefile
+--- GxPlugins_0.7.orig/GxCreamMachine.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxCreamMachine.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxDOP250.lv2/Makefile GxPlugins_0.7/GxDOP250.lv2/Makefile
+--- GxPlugins_0.7.orig/GxDOP250.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxDOP250.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxEpic.lv2/Makefile GxPlugins_0.7/GxEpic.lv2/Makefile
+--- GxPlugins_0.7.orig/GxEpic.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxEpic.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxEternity.lv2/Makefile GxPlugins_0.7/GxEternity.lv2/Makefile
+--- GxPlugins_0.7.orig/GxEternity.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxEternity.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxFz1b.lv2/Makefile GxPlugins_0.7/GxFz1b.lv2/Makefile
+--- GxPlugins_0.7.orig/GxFz1b.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxFz1b.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -35,10 +35,10 @@
+ 	VER = 0.1
+ 	# set compile flags
+ 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxFz1s.lv2/Makefile GxPlugins_0.7/GxFz1s.lv2/Makefile
+--- GxPlugins_0.7.orig/GxFz1s.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxFz1s.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxGuvnor.lv2/Makefile GxPlugins_0.7/GxGuvnor.lv2/Makefile
+--- GxPlugins_0.7.orig/GxGuvnor.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
++++ GxPlugins_0.7/GxGuvnor.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxHeathkit.lv2/Makefile GxPlugins_0.7/GxHeathkit.lv2/Makefile
+--- GxPlugins_0.7.orig/GxHeathkit.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxHeathkit.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxHotBox.lv2/Makefile GxPlugins_0.7/GxHotBox.lv2/Makefile
+--- GxPlugins_0.7.orig/GxHotBox.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxHotBox.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxHyperion.lv2/Makefile GxPlugins_0.7/GxHyperion.lv2/Makefile
+--- GxPlugins_0.7.orig/GxHyperion.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxHyperion.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxKnightFuzz.lv2/Makefile GxPlugins_0.7/GxKnightFuzz.lv2/Makefile
+--- GxPlugins_0.7.orig/GxKnightFuzz.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxKnightFuzz.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxLiquidDrive.lv2/Makefile GxPlugins_0.7/GxLiquidDrive.lv2/Makefile
+--- GxPlugins_0.7.orig/GxLiquidDrive.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxLiquidDrive.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxLuna.lv2/Makefile GxPlugins_0.7/GxLuna.lv2/Makefile
+--- GxPlugins_0.7.orig/GxLuna.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxLuna.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxMicroAmp.lv2/Makefile GxPlugins_0.7/GxMicroAmp.lv2/Makefile
+--- GxPlugins_0.7.orig/GxMicroAmp.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxMicroAmp.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxPlexi.lv2/Makefile GxPlugins_0.7/GxPlexi.lv2/Makefile
+--- GxPlugins_0.7.orig/GxPlexi.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxPlexi.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxQuack.lv2/Makefile GxPlugins_0.7/GxQuack.lv2/Makefile
+--- GxPlugins_0.7.orig/GxQuack.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxQuack.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxSaturator.lv2/Makefile GxPlugins_0.7/GxSaturator.lv2/Makefile
+--- GxPlugins_0.7.orig/GxSaturator.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxSaturator.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxSD1.lv2/Makefile GxPlugins_0.7/GxSD1.lv2/Makefile
+--- GxPlugins_0.7.orig/GxSD1.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxSD1.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxSD2Lead.lv2/Makefile GxPlugins_0.7/GxSD2Lead.lv2/Makefile
+--- GxPlugins_0.7.orig/GxSD2Lead.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxSD2Lead.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxShakaTube.lv2/Makefile GxPlugins_0.7/GxShakaTube.lv2/Makefile
+--- GxPlugins_0.7.orig/GxShakaTube.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxShakaTube.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxSloopyBlue.lv2/Makefile GxPlugins_0.7/GxSloopyBlue.lv2/Makefile
+--- GxPlugins_0.7.orig/GxSloopyBlue.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxSloopyBlue.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxSlowGear.lv2/Makefile GxPlugins_0.7/GxSlowGear.lv2/Makefile
+--- GxPlugins_0.7.orig/GxSlowGear.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxSlowGear.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxSunFace.lv2/Makefile GxPlugins_0.7/GxSunFace.lv2/Makefile
+--- GxPlugins_0.7.orig/GxSunFace.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxSunFace.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxSuperFuzz.lv2/Makefile GxPlugins_0.7/GxSuperFuzz.lv2/Makefile
+--- GxPlugins_0.7.orig/GxSuperFuzz.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxSuperFuzz.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -35,10 +35,10 @@
+ 	VER = 0.1
+ 	# set compile flags
+ 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxSupersonic.lv2/Makefile GxPlugins_0.7/GxSupersonic.lv2/Makefile
+--- GxPlugins_0.7.orig/GxSupersonic.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxSupersonic.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxSuppaToneBender.lv2/Makefile GxPlugins_0.7/GxSuppaToneBender.lv2/Makefile
+--- GxPlugins_0.7.orig/GxSuppaToneBender.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxSuppaToneBender.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -35,10 +35,10 @@
+ 	VER = 0.1
+ 	# set compile flags
+ 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxSVT.lv2/Makefile GxPlugins_0.7/GxSVT.lv2/Makefile
+--- GxPlugins_0.7.orig/GxSVT.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxSVT.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -35,10 +35,10 @@
+ 	VER = 0.1
+ 	# set compile flags
+ 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxTimRay.lv2/Makefile GxPlugins_0.7/GxTimRay.lv2/Makefile
+--- GxPlugins_0.7.orig/GxTimRay.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxTimRay.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxToneMachine.lv2/Makefile GxPlugins_0.7/GxToneMachine.lv2/Makefile
+--- GxPlugins_0.7.orig/GxToneMachine.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxToneMachine.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	  -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxTubeDistortion.lv2/Makefile GxPlugins_0.7/GxTubeDistortion.lv2/Makefile
+--- GxPlugins_0.7.orig/GxTubeDistortion.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxTubeDistortion.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -35,10 +35,10 @@
+ 	VER = 0.1
+ 	# set compile flags
+ 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxUltraCab.lv2/Makefile GxPlugins_0.7/GxUltraCab.lv2/Makefile
+--- GxPlugins_0.7.orig/GxUltraCab.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxUltraCab.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,9 +34,9 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxUVox720k.lv2/Makefile GxPlugins_0.7/GxUVox720k.lv2/Makefile
+--- GxPlugins_0.7.orig/GxUVox720k.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxUVox720k.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxValveCaster.lv2/Makefile GxPlugins_0.7/GxValveCaster.lv2/Makefile
+--- GxPlugins_0.7.orig/GxValveCaster.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxValveCaster.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -35,11 +35,11 @@
+ 	VER = 0.1
+ 	# set compile flags
+ 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	DEBUGFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -D DEBUG
+-	LDFLAGS += -I. -shared -lm
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	DEBUGFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -D DEBUG
++	LDFLAGS += $(rpmldflags) -I. -shared -lm
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxVBassPreAmp.lv2/Makefile GxPlugins_0.7/GxVBassPreAmp.lv2/Makefile
+--- GxPlugins_0.7.orig/GxVBassPreAmp.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxVBassPreAmp.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -35,10 +35,10 @@
+ 	VER = 0.1
+ 	# set compile flags
+ 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxVintageFuzzMaster.lv2/Makefile GxPlugins_0.7/GxVintageFuzzMaster.lv2/Makefile
+--- GxPlugins_0.7.orig/GxVintageFuzzMaster.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxVintageFuzzMaster.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxVmk2.lv2/Makefile GxPlugins_0.7/GxVmk2.lv2/Makefile
+--- GxPlugins_0.7.orig/GxVmk2.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxVmk2.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -35,10 +35,10 @@
+ 	VER = 0.1
+ 	# set compile flags
+ 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+diff -dur GxPlugins_0.7.orig/GxVoodoFuzz.lv2/Makefile GxPlugins_0.7/GxVoodoFuzz.lv2/Makefile
+--- GxPlugins_0.7.orig/GxVoodoFuzz.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
++++ GxPlugins_0.7/GxVoodoFuzz.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
+@@ -34,11 +34,11 @@
+ 	BUNDLE = $(NAME).lv2
+ 	VER = 0.1
+ 	# set compile flags
+-	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
+ 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	  -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared -lm 
+-	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	LDFLAGS += $(rpmldflags) -I. -shared -lm 
++	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp 
+ 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
