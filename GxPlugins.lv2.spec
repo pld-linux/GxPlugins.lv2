@@ -22,7 +22,7 @@ compliment the Guitarix project.
 %prep
 %setup -qn GxPlugins_%{version}
 
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__make} \
