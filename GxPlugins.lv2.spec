@@ -1,7 +1,7 @@
 Summary:	A set of extra lv2 plugins from the Guitarix project
 Name:		GxPlugins.lv2
 Version:	0.7
-Release:	1
+Release:	2
 License:	GPL v3
 Group:		Applications
 Source0:	https://github.com/brummer10/GxPlugins.lv2/releases/download/v%{version}/GxPlugins_%{version}.tar.gz
