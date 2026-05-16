@@ -1,741 +1,772 @@
-diff -dur GxPlugins_0.7.orig/GxAxisFace.lv2/Makefile GxPlugins_0.7/GxAxisFace.lv2/Makefile
---- GxPlugins_0.7.orig/GxAxisFace.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxAxisFace.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
+--- GxPlugins.lv2/GxAxisFace.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxAxisFace.lv2/Makefile	2026-05-13 21:12:53.924904289 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
  	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
 +	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxBaJaTubeDriver.lv2/Makefile GxPlugins_0.7/GxBaJaTubeDriver.lv2/Makefile
---- GxPlugins_0.7.orig/GxBaJaTubeDriver.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxBaJaTubeDriver.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxBlueAmp.lv2/Makefile GxPlugins_0.7/GxBlueAmp.lv2/Makefile
---- GxPlugins_0.7.orig/GxBlueAmp.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxBlueAmp.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxBoobTube.lv2/Makefile GxPlugins_0.7/GxBoobTube.lv2/Makefile
---- GxPlugins_0.7.orig/GxBoobTube.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxBoobTube.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -35,10 +35,10 @@
- 	VER = 0.1
- 	# set compile flags
- 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
--	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
-+	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxBottleRocket.lv2/Makefile GxPlugins_0.7/GxBottleRocket.lv2/Makefile
---- GxPlugins_0.7.orig/GxBottleRocket.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxBottleRocket.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxClubDrive.lv2/Makefile GxPlugins_0.7/GxClubDrive.lv2/Makefile
---- GxPlugins_0.7.orig/GxClubDrive.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxClubDrive.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxCreamMachine.lv2/Makefile GxPlugins_0.7/GxCreamMachine.lv2/Makefile
---- GxPlugins_0.7.orig/GxCreamMachine.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxCreamMachine.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxDOP250.lv2/Makefile GxPlugins_0.7/GxDOP250.lv2/Makefile
---- GxPlugins_0.7.orig/GxDOP250.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxDOP250.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxEpic.lv2/Makefile GxPlugins_0.7/GxEpic.lv2/Makefile
---- GxPlugins_0.7.orig/GxEpic.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxEpic.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxEternity.lv2/Makefile GxPlugins_0.7/GxEternity.lv2/Makefile
---- GxPlugins_0.7.orig/GxEternity.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxEternity.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxFz1b.lv2/Makefile GxPlugins_0.7/GxFz1b.lv2/Makefile
---- GxPlugins_0.7.orig/GxFz1b.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxFz1b.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -35,10 +35,10 @@
- 	VER = 0.1
- 	# set compile flags
- 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
--	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
-+	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxFz1s.lv2/Makefile GxPlugins_0.7/GxFz1s.lv2/Makefile
---- GxPlugins_0.7.orig/GxFz1s.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxFz1s.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxGuvnor.lv2/Makefile GxPlugins_0.7/GxGuvnor.lv2/Makefile
---- GxPlugins_0.7.orig/GxGuvnor.lv2/Makefile	2019-05-31 07:36:51.000000000 +0200
-+++ GxPlugins_0.7/GxGuvnor.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxHeathkit.lv2/Makefile GxPlugins_0.7/GxHeathkit.lv2/Makefile
---- GxPlugins_0.7.orig/GxHeathkit.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxHeathkit.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxHotBox.lv2/Makefile GxPlugins_0.7/GxHotBox.lv2/Makefile
---- GxPlugins_0.7.orig/GxHotBox.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxHotBox.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxHyperion.lv2/Makefile GxPlugins_0.7/GxHyperion.lv2/Makefile
---- GxPlugins_0.7.orig/GxHyperion.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxHyperion.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxKnightFuzz.lv2/Makefile GxPlugins_0.7/GxKnightFuzz.lv2/Makefile
---- GxPlugins_0.7.orig/GxKnightFuzz.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxKnightFuzz.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxLiquidDrive.lv2/Makefile GxPlugins_0.7/GxLiquidDrive.lv2/Makefile
---- GxPlugins_0.7.orig/GxLiquidDrive.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxLiquidDrive.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxLuna.lv2/Makefile GxPlugins_0.7/GxLuna.lv2/Makefile
---- GxPlugins_0.7.orig/GxLuna.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxLuna.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxMicroAmp.lv2/Makefile GxPlugins_0.7/GxMicroAmp.lv2/Makefile
---- GxPlugins_0.7.orig/GxMicroAmp.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxMicroAmp.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxPlexi.lv2/Makefile GxPlugins_0.7/GxPlexi.lv2/Makefile
---- GxPlugins_0.7.orig/GxPlexi.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxPlexi.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxQuack.lv2/Makefile GxPlugins_0.7/GxQuack.lv2/Makefile
---- GxPlugins_0.7.orig/GxQuack.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxQuack.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxSaturator.lv2/Makefile GxPlugins_0.7/GxSaturator.lv2/Makefile
---- GxPlugins_0.7.orig/GxSaturator.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxSaturator.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxSD1.lv2/Makefile GxPlugins_0.7/GxSD1.lv2/Makefile
---- GxPlugins_0.7.orig/GxSD1.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxSD1.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxSD2Lead.lv2/Makefile GxPlugins_0.7/GxSD2Lead.lv2/Makefile
---- GxPlugins_0.7.orig/GxSD2Lead.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxSD2Lead.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxShakaTube.lv2/Makefile GxPlugins_0.7/GxShakaTube.lv2/Makefile
---- GxPlugins_0.7.orig/GxShakaTube.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxShakaTube.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxSloopyBlue.lv2/Makefile GxPlugins_0.7/GxSloopyBlue.lv2/Makefile
---- GxPlugins_0.7.orig/GxSloopyBlue.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxSloopyBlue.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxSlowGear.lv2/Makefile GxPlugins_0.7/GxSlowGear.lv2/Makefile
---- GxPlugins_0.7.orig/GxSlowGear.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxSlowGear.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxSunFace.lv2/Makefile GxPlugins_0.7/GxSunFace.lv2/Makefile
---- GxPlugins_0.7.orig/GxSunFace.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxSunFace.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxSuperFuzz.lv2/Makefile GxPlugins_0.7/GxSuperFuzz.lv2/Makefile
---- GxPlugins_0.7.orig/GxSuperFuzz.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxSuperFuzz.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -35,10 +35,10 @@
- 	VER = 0.1
- 	# set compile flags
- 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
--	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
-+	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxSupersonic.lv2/Makefile GxPlugins_0.7/GxSupersonic.lv2/Makefile
---- GxPlugins_0.7.orig/GxSupersonic.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxSupersonic.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxSuppaToneBender.lv2/Makefile GxPlugins_0.7/GxSuppaToneBender.lv2/Makefile
---- GxPlugins_0.7.orig/GxSuppaToneBender.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxSuppaToneBender.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -35,10 +35,10 @@
- 	VER = 0.1
- 	# set compile flags
- 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
--	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
-+	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxSVT.lv2/Makefile GxPlugins_0.7/GxSVT.lv2/Makefile
---- GxPlugins_0.7.orig/GxSVT.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxSVT.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -35,10 +35,10 @@
- 	VER = 0.1
- 	# set compile flags
- 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
--	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
-+	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxTimRay.lv2/Makefile GxPlugins_0.7/GxTimRay.lv2/Makefile
---- GxPlugins_0.7.orig/GxTimRay.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxTimRay.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxToneMachine.lv2/Makefile GxPlugins_0.7/GxToneMachine.lv2/Makefile
---- GxPlugins_0.7.orig/GxToneMachine.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxToneMachine.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	  -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxTubeDistortion.lv2/Makefile GxPlugins_0.7/GxTubeDistortion.lv2/Makefile
---- GxPlugins_0.7.orig/GxTubeDistortion.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxTubeDistortion.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -35,10 +35,10 @@
- 	VER = 0.1
- 	# set compile flags
- 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
--	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
-+	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxUltraCab.lv2/Makefile GxPlugins_0.7/GxUltraCab.lv2/Makefile
---- GxPlugins_0.7.orig/GxUltraCab.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxUltraCab.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,9 +34,9 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxUVox720k.lv2/Makefile GxPlugins_0.7/GxUVox720k.lv2/Makefile
---- GxPlugins_0.7.orig/GxUVox720k.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxUVox720k.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
-+	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxValveCaster.lv2/Makefile GxPlugins_0.7/GxValveCaster.lv2/Makefile
---- GxPlugins_0.7.orig/GxValveCaster.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxValveCaster.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -35,11 +35,11 @@
- 	VER = 0.1
- 	# set compile flags
- 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
--	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
-+	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	DEBUGFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -D DEBUG
--	LDFLAGS += -I. -shared -lm
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	DEBUGFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -D DEBUG
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
  	# invoke build files
  	OBJECTS = plugin/$(NAME).cpp
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxVBassPreAmp.lv2/Makefile GxPlugins_0.7/GxVBassPreAmp.lv2/Makefile
---- GxPlugins_0.7.orig/GxVBassPreAmp.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxVBassPreAmp.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -35,10 +35,10 @@
- 	VER = 0.1
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxBaJaTubeDriver.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxBaJaTubeDriver.lv2/Makefile	2026-05-13 21:14:19.967771488 +0200
+@@ -83,10 +83,10 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
  	# set compile flags
- 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
--	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
-+	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxVintageFuzzMaster.lv2/Makefile GxPlugins_0.7/GxVintageFuzzMaster.lv2/Makefile
---- GxPlugins_0.7.orig/GxVintageFuzzMaster.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxVintageFuzzMaster.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops \
 +	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	 -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
  	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxVmk2.lv2/Makefile GxPlugins_0.7/GxVmk2.lv2/Makefile
---- GxPlugins_0.7.orig/GxVmk2.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxVmk2.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -35,10 +35,10 @@
- 	VER = 0.1
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxBlueAmp.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxBlueAmp.lv2/Makefile	2026-05-13 21:38:03.213394437 +0200
+@@ -83,10 +83,10 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
  	# set compile flags
- 	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
--	 -fPIC -DPIC -O2 -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
-+	 -fPIC -DPIC $(rpmcxxflags) -Wall -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	 -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
- 	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
-diff -dur GxPlugins_0.7.orig/GxVoodoFuzz.lv2/Makefile GxPlugins_0.7/GxVoodoFuzz.lv2/Makefile
---- GxPlugins_0.7.orig/GxVoodoFuzz.lv2/Makefile	2019-05-31 07:36:52.000000000 +0200
-+++ GxPlugins_0.7/GxVoodoFuzz.lv2/Makefile	2019-05-31 10:53:27.000000000 +0200
-@@ -34,11 +34,11 @@
- 	BUNDLE = $(NAME).lv2
- 	VER = 0.1
- 	# set compile flags
--	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops \
 +	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
- 	 -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
- 	  -fdata-sections -Wl,--gc-sections $(SSE_CFLAGS)
--	LDFLAGS += -I. -shared -lm 
--	GUI_LDFLAGS += -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
-+	LDFLAGS += $(rpmldflags) -I. -shared -lm 
-+	GUI_LDFLAGS += $(rpmldflags) -I./gui -shared -lm `pkg-config --cflags --libs cairo` -L/usr/X11/lib -lX11
+ 	 -ffast-math -fomit-frame-pointer -fstrength-reduce -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
  	# invoke build files
- 	OBJECTS = plugin/$(NAME).cpp 
- 	GUI_OBJECTS = gui/$(NAME)_x11ui.c
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxBoobTube.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxBoobTube.lv2/Makefile	2026-05-13 21:42:46.015195701 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxBottleRocket.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxBottleRocket.lv2/Makefile	2026-05-13 21:44:29.047970859 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxClubDrive.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxClubDrive.lv2/Makefile	2026-05-13 21:50:06.942806991 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared -lm $(ABI_LDFLAGS)
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared -lm $(ABI_LDFLAGS)
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxCreamMachine.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxCreamMachine.lv2/Makefile	2026-05-13 21:53:27.231721933 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxDOP250.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxDOP250.lv2/Makefile	2026-05-13 21:54:45.317965570 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxEpic.lv2/Makefile.orig	2026-05-13 21:56:04.314204278 +0200
++++ GxPlugins.lv2/GxEpic.lv2/Makefile	2026-05-13 21:56:48.787296680 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 \
+-	 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) \
++	 -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxEternity.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxEternity.lv2/Makefile	2026-05-14 22:04:15.846805764 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxFz1b.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxFz1b.lv2/Makefile	2026-05-14 22:05:33.949715978 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxFz1s.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxFz1s.lv2/Makefile	2026-05-14 22:06:44.542666876 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxGuvnor.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxGuvnor.lv2/Makefile	2026-05-14 22:07:49.802313334 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxHeathkit.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxHeathkit.lv2/Makefile	2026-05-14 22:13:01.680623744 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxHotBox.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxHotBox.lv2/Makefile	2026-05-14 22:14:00.216973292 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxHyperion.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxHyperion.lv2/Makefile	2026-05-14 22:14:59.166653935 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxKnightFuzz.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxKnightFuzz.lv2/Makefile	2026-05-14 22:16:06.472955972 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxLiquidDrive.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxLiquidDrive.lv2/Makefile	2026-05-14 22:17:02.575985369 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxLuna.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxLuna.lv2/Makefile	2026-05-14 22:18:08.925625922 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 \
+-	 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) \
++	 -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxMicroAmp.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxMicroAmp.lv2/Makefile	2026-05-14 22:30:59.211452925 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxPlexi.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxPlexi.lv2/Makefile	2026-05-14 22:31:52.657830048 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 \
+-	 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) \
++	 -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared -lm $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared -lm $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared -lm $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared -lm $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxQuack.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxQuack.lv2/Makefile	2026-05-15 21:38:16.353851941 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxSaturator.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxSaturator.lv2/Makefile	2026-05-15 21:39:19.180178248 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxSD1.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxSD1.lv2/Makefile	2026-05-15 21:40:19.923182508 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxSD2Lead.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxSD2Lead.lv2/Makefile	2026-05-15 21:50:19.913265416 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxShakaTube.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxShakaTube.lv2/Makefile	2026-05-15 21:51:21.036267618 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxSloopyBlue.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxSloopyBlue.lv2/Makefile	2026-05-15 21:52:18.679288672 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 \
+-	 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) \
++	 -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxSlowGear.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxSlowGear.lv2/Makefile	2026-05-15 21:53:52.962111231 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxSunFace.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxSunFace.lv2/Makefile	2026-05-15 21:55:01.748405251 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS)  $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxSuperFuzz.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxSuperFuzz.lv2/Makefile	2026-05-15 21:55:55.551447108 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxSupersonic.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxSupersonic.lv2/Makefile	2026-05-15 21:56:53.524466374 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 \
+-	 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) \
++	 -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxSuppaToneBender.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxSuppaToneBender.lv2/Makefile	2026-05-15 21:57:53.160809963 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxSVT.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxSVT.lv2/Makefile	2026-05-15 21:58:45.057195483 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxTimRay.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxTimRay.lv2/Makefile	2026-05-15 22:02:07.392766004 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 \
+-	 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) \
++	 -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxToneMachine.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxToneMachine.lv2/Makefile	2026-05-15 22:02:49.949202123 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	  -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	  -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS)  $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxTubeDistortion.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxTubeDistortion.lv2/Makefile	2026-05-15 22:03:24.675680660 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS)  $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxUltraCab.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxUltraCab.lv2/Makefile	2026-05-15 22:32:49.509453068 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 \
+-	 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) \
++	 -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxUVox720k.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxUVox720k.lv2/Makefile	2026-05-15 22:33:21.059282148 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxValveCaster.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxValveCaster.lv2/Makefile	2026-05-15 22:34:12.252338144 +0200
+@@ -83,12 +83,12 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	DEBUGFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall -D DEBUG
+-	LDFLAGS += -I. -shared -lm $(ABI_LDFLAGS)
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	DEBUGFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall -D DEBUG
++	LDFLAGS += $(rpmldflags) -shared -lm $(ABI_LDFLAGS)
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxVBassPreAmp.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxVBassPreAmp.lv2/Makefile	2026-05-15 22:34:57.095428542 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxVintageFuzzMaster.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxVintageFuzzMaster.lv2/Makefile	2026-05-15 22:35:30.208582486 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	 -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxVmk2.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxVmk2.lv2/Makefile	2026-05-15 22:36:06.491719257 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
+-	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
++	 -fPIC -DPIC $(rpmcxxflags) -Wall -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+--- GxPlugins.lv2/GxVoodoFuzz.lv2/Makefile.orig	2023-01-19 10:21:21.000000000 +0100
++++ GxPlugins.lv2/GxVoodoFuzz.lv2/Makefile	2026-05-15 22:36:39.964871250 +0200
+@@ -83,11 +83,11 @@
+ 		GUI_PLATFORM_FILES = $(GUI_PLATFORM_DIR)/gx_platform_apple.c
+ 	endif
+ 	# set compile flags
+-	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -fPIC -DPIC -O2 -Wall \
+-	 -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
++	CXXFLAGS += -I. -I./dsp -I./plugin -fPIC -DPIC $(rpmcxxflags) -Wall \
++	  -ffast-math -fomit-frame-pointer -fstrength-reduce \
+ 	  -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS)
+-	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
+-	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
++	LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm
++	GUI_LDFLAGS += $(rpmldflags) -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
+ 	# invoke build files
+ 	OBJECTS = plugin/$(NAME).cpp
+ 	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
